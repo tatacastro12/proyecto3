@@ -1,50 +1,26 @@
-// Funciones de modificación
-function cambiarColorFondo(color) {
-    document.body.style.backgroundColor = color;
-}
-
-function cambiarTamanoFuente(tamano) {
-    document.body.style.fontSize = tamano + "px";
-}
-
-function cambiarContraste() {
-    let body = document.body;
-    if (body.style.backgroundColor === "black") {
-        body.style.backgroundColor = "white";
-        body.style.color = "black";
-    } else {
-        body.style.backgroundColor = "black";
-        body.style.color = "white";
-    }
-}
-
-function cambiarImagenes(url) {
-    let imagenes = document.querySelectorAll("img");
-    imagenes.forEach(function(img) {
-        img.src = url;
-    });
-}
-
 // Crear el panel de modificación (con botones)
 function crearPanelModificador() {
     const panel = document.createElement("div");
+
+    // Identificador único para el panel
+    panel.id = "panel-modificador";
     panel.style.position = "fixed";
     panel.style.top = "50%";
     panel.style.right = "10px";
     panel.style.transform = "translateY(-50%)";
     panel.style.backgroundColor = "#fff";
-    panel.style.padding = "5px";
-    panel.style.borderRadius = "5px";
-    panel.style.boxShadow = "0 0 5px rgba(0, 0, 0, 0.1)";
-    panel.style.zIndex = "1000"; // Asegura que el panel esté encima de otros elementos
+    panel.style.padding = "10px";
+    panel.style.borderRadius = "10px";
+    panel.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.1)";
+    panel.style.zIndex = "1000"; // Asegura que el panel esté visible
     panel.style.display = "flex";
     panel.style.flexDirection = "column";
     panel.style.alignItems = "center";
     panel.style.fontFamily = "Arial, sans-serif";
-    panel.style.width = "60px"; // Hacer el panel más estrecho
-    panel.style.height = "auto"; // Tamaño flexible según el contenido
+    panel.style.width = "60px";
+    panel.style.height = "auto";
 
-    // Estilo de los botones para hacerlo más compacto
+    // Botones con estilo único
     const estiloBoton = {
         width: "50px",
         marginBottom: "5px",
@@ -56,49 +32,55 @@ function crearPanelModificador() {
         cursor: "pointer",
     };
 
-    // Botón para cambiar el fondo
+    // Crear botones
     const botonFondo = document.createElement("button");
     botonFondo.innerHTML = "Fondo";
     Object.assign(botonFondo.style, estiloBoton);
     botonFondo.onclick = function() {
-        cambiarColorFondo('lightblue');
+        document.body.style.backgroundColor = "lightblue";
     };
 
-    // Botón para cambiar tamaño de fuente
     const botonTamano = document.createElement("button");
     botonTamano.innerHTML = "Fuente";
     Object.assign(botonTamano.style, estiloBoton);
     botonTamano.onclick = function() {
-        cambiarTamanoFuente(20);
+        document.body.style.fontSize = "20px";
     };
 
-    // Botón para cambiar el contraste
     const botonContraste = document.createElement("button");
     botonContraste.innerHTML = "Contraste";
     Object.assign(botonContraste.style, estiloBoton);
     botonContraste.onclick = function() {
-        cambiarContraste();
+        const body = document.body;
+        if (body.style.backgroundColor === "black") {
+            body.style.backgroundColor = "white";
+            body.style.color = "black";
+        } else {
+            body.style.backgroundColor = "black";
+            body.style.color = "white";
+        }
     };
 
-    // Botón para cambiar la imagen
     const botonImagen = document.createElement("button");
     botonImagen.innerHTML = "Imagen";
     Object.assign(botonImagen.style, estiloBoton);
     botonImagen.onclick = function() {
-        cambiarImagenes('https://via.placeholder.com/200');
+        const imagenes = document.querySelectorAll("img");
+        imagenes.forEach((img) => (img.src = "https://via.placeholder.com/200"));
     };
 
-    // Añadir los botones al panel
+    // Añadir botones al panel
     panel.appendChild(botonFondo);
     panel.appendChild(botonTamano);
     panel.appendChild(botonContraste);
     panel.appendChild(botonImagen);
 
-    // Agregar el panel al body
+    // Agregar panel al body
     document.body.appendChild(panel);
 }
 
-// Llamamos a la función para crear el panel cuando cargue el script
+// Crear el panel al cargar
 crearPanelModificador();
+
 
 
